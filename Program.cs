@@ -47,6 +47,7 @@ namespace ConverterNames
                 }
                 Console.WriteLine();*/
 
+                //TODO:
                 for (int letterIndex = 0; letterIndex < latUp.Count; letterIndex++)
                 {
                     if (listElement.Contains(rusUp[letterIndex]))
