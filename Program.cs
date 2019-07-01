@@ -19,7 +19,6 @@ namespace ConverterNames
 
         public static string[] Convert(string[] List){
             //https://en.wikipedia.org/wiki/Vehicle_registration_plate#Russian_Federation
-            //"ABCEHKMOPTXУ"
             string[] lat_up =  { "A", "b", "B", "G", "D", "E", "E", "J", "Z", "U", "U", "K", "L", "M", "H", "O", "n", "P", "C", "T", "Y", "F", "X", "S", "4", "W", "W", "6", "I", "6", "E", "Y", "9" };
             string[] lat_low = { "a", "b", "B", "g", "d", "e", "e", "j", "z", "u", "u", "K", "l", "M", "H", "o", "n", "p", "c", "t", "y", "f", "x", "s", "4", "w", "w", "6", "i", "6", "e", "y", "9" };
 
