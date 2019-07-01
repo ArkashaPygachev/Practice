@@ -9,7 +9,7 @@ namespace ConverterNames
         {
             /*string[] OriginalList = System.IO.File.ReadAllLines(@"C:\Projects\OriginalList.txt");
             string[] ConvertedList = Convert(OriginalList);*/
-            var OriginalList = new List<string>() { "бИ", "bН", "й", "Субару P567XH" };
+            var OriginalList = new List<string>() { "бИ", "bН", "й", "Субару Р567ХН" };
             var ConvertedList = Convert(OriginalList);
             //System.IO.File.WriteAllLines(@"C:\Projects\ConvertedList.txt", ConvertedList);
         }
@@ -17,7 +17,6 @@ namespace ConverterNames
         public static List<string> Convert(List<string> originalList)
         {
             //https://en.wikipedia.org/wiki/Vehicle_registration_plate#Russian_Federation
-            //List<char> lat_up = new List<char> { 'A', 'b', 'B', 'G', 'D', 'E', 'E', 'J', 'Z', 'U', 'U', 'K', 'L', 'M', 'H', 'O', 'n', 'P', 'C', 'T', 'Y', 'F', 'X', 'S', '4', 'W', 'W', '6', 'I', '6', 'E', 'Y', '9' };
             List<char> latUp = new List<char>  { 'A', 'b', 'B', 'G', 'D', 'E', 'E', 'J', 'Z', 'U', 'U', 'K', 'L', 'M', 'H', 'O', 'n', 'P', 'C', 'T', 'Y', 'F', 'X', 'S', '4', 'W', 'W', '6', 'I', '6', 'E', 'Y', '9' };
             List<char> latLow = new List<char> { 'a', 'b', 'B', 'g', 'd', 'e', 'e', 'j', 'z', 'u', 'u', 'K', 'l', 'M', 'H', 'o', 'n', 'p', 'c', 't', 'y', 'f', 'x', 's', '4', 'w', 'w', '6', 'i', '6', 'e', 'y', '9' };
             
@@ -27,8 +26,32 @@ namespace ConverterNames
             for (int listIndex = 0; listIndex < originalList.Count; listIndex++)
             {
                 string listElement = originalList[listIndex];
-                int[] letterColors = new int[listElement.Length];
 
+                for (int letterIndexInList = 0; letterIndexInList < listElement.Length; letterIndexInList++)
+                {
+                    char letter = listElement[letterIndexInList];
+                    for (int letterIndexInAlphabet = 0; letterIndexInAlphabet < latUp.Count; letterIndexInAlphabet++)
+                    {
+                        if (letter==rusUp[letterIndexInAlphabet])
+                        {
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            letter = latUp[letterIndexInAlphabet];
+                            break;
+                        }
+                        if (letter == rusLow[letterIndexInAlphabet])
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            letter = latLow[letterIndexInAlphabet];
+                            break;
+                        }
+                    }
+                    Console.Write(letter);
+                    Console.ResetColor();
+                }
+                Console.WriteLine();
+
+                /*
+                int[] letterColors = new int[listElement.Length];
                 for (int letterIndex = 0; letterIndex < listElement.Length; letterIndex++)
                 {
                     if (rusUp.Contains(listElement[letterIndex]))
@@ -36,17 +59,6 @@ namespace ConverterNames
                     if (rusLow.Contains(listElement[letterIndex]))
                         letterColors[letterIndex] = 2;
                 }
-                
-                /*foreach (char letter in listElement.ToCharArray())
-                {
-                    if (rus_up.Contains(letter))
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                    if (rus_low.Contains(letter))
-                        Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.Write(letter);
-                }
-                Console.WriteLine();*/
-
                 for (int letterIndex = 0; letterIndex < latUp.Count; letterIndex++)
                 {
                     if (listElement.Contains(rusUp[letterIndex]))
@@ -63,7 +75,18 @@ namespace ConverterNames
                     Console.Write(listElement[letterIndex]);
                     Console.ResetColor();
                 }
-                Console.WriteLine();
+                Console.WriteLine();*/
+
+                /*foreach (char letter in listElement.ToCharArray())
+                {
+                    if (rus_up.Contains(letter))
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                    if (rus_low.Contains(letter))
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write(letter);
+                }
+                Console.WriteLine();*/
+
             }
             return originalList;
         }
