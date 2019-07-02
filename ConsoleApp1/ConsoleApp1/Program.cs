@@ -1,46 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using NUnit.Framework;
+
 namespace ConverterNames
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        static void Main(string[] args) {
             /*string[] OriginalList = System.IO.File.ReadAllLines(@"C:\Projects\OriginalList.txt");
             string[] ConvertedList = Convert(OriginalList);*/
-            var OriginalList = new List<string>() { "бИ", "bН", "й", "Субару Р567ХН" };
+            var OriginalList = new List<string>() { "бИ", "bН", "йз", "Субару Р567ХН", "" };
             var ConvertedList = Convert(OriginalList);
             //System.IO.File.WriteAllLines(@"C:\Projects\ConvertedList.txt", ConvertedList);
         }
 
-        public static List<string> Convert(List<string> originalList)
-        {
+        public static List<string> Convert(List<string> originalList) {
             //https://en.wikipedia.org/wiki/Vehicle_registration_plate#Russian_Federation
-            List<char> latUp = new List<char>  { 'A', 'b', 'B', 'G', 'D', 'E', 'E', 'J', 'Z', 'U', 'U', 'K', 'L', 'M', 'H', 'O', 'n', 'P', 'C', 'T', 'Y', 'F', 'X', 'S', '4', 'W', 'W', '6', 'I', '6', 'E', 'Y', '9' };
+            List<char> latUp = new List<char> { 'A', 'b', 'B', 'G', 'D', 'E', 'E', 'J', 'Z', 'U', 'U', 'K', 'L', 'M', 'H', 'O', 'n', 'P', 'C', 'T', 'Y', 'F', 'X', 'S', '4', 'W', 'W', '6', 'I', '6', 'E', 'Y', '9' };
             List<char> latLow = new List<char> { 'a', 'b', 'B', 'g', 'd', 'e', 'e', 'j', 'z', 'u', 'u', 'K', 'l', 'M', 'H', 'o', 'n', 'p', 'c', 't', 'y', 'f', 'x', 's', '4', 'w', 'w', '6', 'i', '6', 'e', 'y', '9' };
-            
-            List<char> rusUp = new List<char>  { 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я' };
+
+            List<char> rusUp = new List<char> { 'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я' };
             List<char> rusLow = new List<char> { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
 
-            for (int listIndex = 0; listIndex < originalList.Count; listIndex++)
-            {
+            for (int listIndex = 0; listIndex < originalList.Count; listIndex++) {
                 string listElement = originalList[listIndex];
 
-                for (int letterIndexInList = 0; letterIndexInList < listElement.Length; letterIndexInList++)
-                {
+                for (int letterIndexInList = 0; letterIndexInList < listElement.Length; letterIndexInList++) {
                     char letter = listElement[letterIndexInList];
-                    for (int letterIndexInAlphabet = 0; letterIndexInAlphabet < latUp.Count; letterIndexInAlphabet++)
-                    {
-                        if (letter==rusUp[letterIndexInAlphabet])
-                        {
+
+                    for (int letterIndexInAlphabet = 0; letterIndexInAlphabet < latUp.Count; letterIndexInAlphabet++) {
+                        if (letter == rusUp[letterIndexInAlphabet]) {
                             Console.ForegroundColor = ConsoleColor.Cyan;
+                            originalList[listIndex] = originalList[listIndex].Replace(letter, latUp[letterIndexInAlphabet]);
                             letter = latUp[letterIndexInAlphabet];
                             break;
                         }
-                        if (letter == rusLow[letterIndexInAlphabet])
-                        {
+                        if (letter == rusLow[letterIndexInAlphabet]) {
                             Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            originalList[listIndex] = originalList[listIndex].Replace(letter, latLow[letterIndexInAlphabet]);
                             letter = latLow[letterIndexInAlphabet];
                             break;
                         }
@@ -89,6 +87,37 @@ namespace ConverterNames
 
             }
             return originalList;
+        }
+    }
+
+    [TestFixture]
+    class ProgramTest
+    {
+        [Test]
+        public void ConvertTest() {
+            //arrange
+            List<string> inputParameters = new List<string>() { "чКФдз" };
+            List<string> expectedConverionResult = new List<string>() { "4KFdz" };
+
+            //act
+            List<string> actualConverionResult = Program.Convert(inputParameters);
+
+            //assert
+            Assert.AreEqual(expectedConverionResult.Count, actualConverionResult.Count);
+            for (int index = 0; index < actualConverionResult.Count; index++) {
+                Assert.AreEqual(expectedConverionResult[index], actualConverionResult[index]);
+            }
+
+            for (int stringIndex = 0; stringIndex < actualConverionResult.Count; stringIndex++) {
+                string actualListElement = actualConverionResult[stringIndex];
+                string expectedListElement = expectedConverionResult[stringIndex];
+                for (int letterIndex = 0; letterIndex < actualListElement.Length; letterIndex++) {
+                    char actualLetter = actualListElement[letterIndex];
+                    char expectedLetter = expectedListElement[letterIndex];
+                    Assert.IsTrue((int)actualLetter <= 122);
+                    Assert.IsTrue((int)actualLetter <= (int)expectedLetter);
+                }
+            }
         }
     }
 }
