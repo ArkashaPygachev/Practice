@@ -5,17 +5,31 @@ using System.IO;
 using System.Xml;
 using NUnit.Framework;
 
-namespace ConverterNames
+namespace ConsoleApp1
 {
     class Program
     {
+        enum LoaderType
+        {
+            Xml = 0,
+            Text = 1
+        }
         static void Main(string[] args) {
+            if (args.Length == 0)
+                throw new InvalidOperationException("Command Line parameters were not specified");
             string inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
-            string outputFileName = ConfigurationManager.AppSettings["SaveFileName"];
+            Loader loader;
+            if (args[0] == "0")
+                loader = new XmlLoader(inputFileName);
+            else
+                loader = new TextLoader(inputFileName);
+            Console.WriteLine(loader.ToString());
+            var charactersDictionary = loader.GetFromConfig();
+
             //List<string> example = new List<string>() { "АВВБББА" };
+            //var charactersDictionary = GetDictionaryFromXml(inputFileName);
 
-            var charactersDictionary = GetDictionaryFromXml(inputFileName);
-
+            string outputFileName = ConfigurationManager.AppSettings["SaveFileName"];
             string outputFileNameWithoutExtension = Path.GetFileNameWithoutExtension(outputFileName);
             string extension = Path.GetExtension(outputFileName);
             Guid s = Guid.NewGuid();
