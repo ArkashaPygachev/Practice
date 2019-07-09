@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Xml;
+using DictionaryLoader;
 using NUnit.Framework;
 
-namespace ConsoleApp1
-{
-    class Program
-    {
-        enum LoaderType
-        {
+namespace ConsoleApp1 {
+    class Program {
+        enum LoaderType {
             Xml = 0,
             Text = 1
         }
@@ -19,13 +17,24 @@ namespace ConsoleApp1
                 throw new InvalidOperationException("Command Line parameters were not specified");
             string inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
             Loader loader;
-            if (args[0] == "0")
-                loader = new XmlLoader(inputFileName);
-            else
-                loader = new TextLoader(inputFileName);
-            Console.WriteLine(loader.ToString());
-            var charactersDictionary = loader.GetFromConfig();
+            loader = new XmlLoader(inputFileName);
+            //if (args[0] == "0")
+            //    loader = new XmlLoader(inputFileName);
+            //else
+            //    loader = new TextLoader(inputFileName);
+            //Console.WriteLine(loader.ToString());
+            var pair = loader.GetFromConfig();
 
+            if (pair.Error != null) {
+                Console.WriteLine(pair.Error);
+                Environment.Exit(1);
+            } else {
+                foreach (var letters in pair.Data) {
+                    Console.WriteLine($"{letters.Key} {letters.Value}");
+                }
+            }
+
+            Console.ReadLine();
             //List<string> example = new List<string>() { "АВВБББА" };
             //var charactersDictionary = GetDictionaryFromXml(inputFileName);
 
@@ -44,8 +53,8 @@ namespace ConsoleApp1
             //    tw.WriteLine(item);
             //tw.Close();
 
-            foreach (var item in charactersDictionary)
-                File.AppendAllText(outputFileName, $"-123--{item}{Environment.NewLine}");
+            //foreach (var item in charactersDictionary)
+            //    File.AppendAllText(outputFileName, $"-123--{item}{Environment.NewLine}");
 
             //foreach (var item in dictionary) {
             //    File.WriteAllText(saveFileName, $"{item.Key} - {item.Value}");
@@ -66,14 +75,14 @@ namespace ConsoleApp1
                 throw new InvalidOperationException("The specified file does not exist");
             var rusLatDictionary = new Dictionary<string, string>();
             //if (File.Exists(fileName)) {
-                XmlDocument latAlphabet = new XmlDocument();
-                latAlphabet.Load(fileName);
-                XmlElement letters = latAlphabet.DocumentElement;
-                foreach (XmlNode letter in letters) {
-                    XmlNode rus = letter.Attributes["rus"];
-                    XmlNode lat = letter.Attributes["lat"];
-                    rusLatDictionary.Add(rus.Value, lat.Value);
-                }
+            XmlDocument latAlphabet = new XmlDocument();
+            latAlphabet.Load(fileName);
+            XmlElement letters = latAlphabet.DocumentElement;
+            foreach (XmlNode letter in letters) {
+                XmlNode rus = letter.Attributes["rus"];
+                XmlNode lat = letter.Attributes["lat"];
+                rusLatDictionary.Add(rus.Value, lat.Value);
+            }
             //}
             return rusLatDictionary;
         }
@@ -183,8 +192,7 @@ namespace ConsoleApp1
     }
 
     [TestFixture]
-    class ProgramTest
-    {
+    class ProgramTest {
         [Test]
         public void TextContentTest() {
 
