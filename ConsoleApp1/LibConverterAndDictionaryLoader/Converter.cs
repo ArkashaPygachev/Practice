@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibConverterAndDictionaryLoader {
     public static class Converter {
-        public static List<string> Convert(string fileDir, Dictionary<string, string> dictionary) {
-            List<string> content = GetFileContentAsString(fileDir);
+        public static List<string> Convert(List<string> content, Dictionary<string, string> dictionary) {
             foreach (var item in dictionary) {
                 for (int lineIndex = 0; lineIndex < content.Count; lineIndex++) {
                     content[lineIndex] = content[lineIndex].Replace(item.Key, item.Value);

@@ -48,9 +48,10 @@ namespace WindowsFormsApp1 {
         }
         public void OutputResult() {
             string inputFileNameContent = ConfigurationManager.AppSettings["Text"];
+            List<string> content = Converter.GetFileContentAsString(inputFileNameContent);
             this.AppendText($"Text loaded from {inputFileNameContent} and converted\n\n");
-            List<string> content = Converter.Convert(inputFileNameContent, result.Data);
-            foreach (var line in content) {
+            List<string> actualContent = Converter.Convert(content, result.Data);
+            foreach (var line in actualContent) {
                 this.AppendText($"{line}\n");
             }
         }
