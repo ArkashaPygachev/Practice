@@ -56,6 +56,12 @@
     <Compile Include="MyButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MyPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -84,16 +90,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LibraryLoader\DictionaryLoader.csproj">
-      <Project>{0e6cfca5-da47-412e-ae45-b4f74e0485b5}</Project>
-      <Name>DictionaryLoader</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="TestText.txt" />
     <Content Include="XMLFile1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibConverterAndDictionaryLoader\LibConverterAndDictionaryLoader.csproj">
+      <Project>{15B994BA-50A7-4C04-BBB4-0816310E6AF2}</Project>
+      <Name>LibConverterAndDictionaryLoader</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

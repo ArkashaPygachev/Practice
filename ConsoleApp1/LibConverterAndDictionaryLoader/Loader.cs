@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace DictionaryLoader
-{
-    public abstract class Loader
-    {
+namespace LibConverterAndDictionaryLoader {
+    public abstract class Loader {
         protected string fInputFileName;
         public Loader(string inputFileName) {
             if (string.IsNullOrEmpty(inputFileName))
@@ -18,8 +16,7 @@ namespace DictionaryLoader
         }
         public abstract LoadResult GetFromConfig();
     }
-    public class XmlLoader : Loader
-    {
+    public class XmlLoader : Loader {
         public XmlLoader(string inputFileName) : base(inputFileName) { }
         public override LoadResult GetFromConfig() {
             LoadResult result = new LoadResult();

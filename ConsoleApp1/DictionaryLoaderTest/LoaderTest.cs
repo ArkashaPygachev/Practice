@@ -1,4 +1,4 @@
-﻿using DictionaryLoader;
+﻿using LibConverterAndDictionaryLoader;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
