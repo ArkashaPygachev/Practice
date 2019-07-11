@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Xml;
 
 namespace LibConverterAndDictionaryLoader {
     public abstract class Loader {
         protected string fInputFileName;
+        public event EventHandler DictionaryLoaded;
         public Loader(string inputFileName) {
             if (string.IsNullOrEmpty(inputFileName))
                 throw new ArgumentNullException("fileName");
             fInputFileName = inputFileName;
+        }
+        public void OnDictionaryLoaded(LoaderEventArgs e) {
+            EventHandler dictionaryLoaded = DictionaryLoaded;
+            if (dictionaryLoaded!=null) {
+                dictionaryLoaded(this, e);
+            }
         }
         public abstract LoadResult GetFromConfig();
     }
@@ -33,6 +41,8 @@ namespace LibConverterAndDictionaryLoader {
                     result.Data.Add(rus.Value, lat.Value);
                 }
             }
+            Thread.Sleep(3000);
+            OnDictionaryLoaded(new LoaderEventArgs(result));
             return result;
         }
     }
@@ -60,6 +70,12 @@ namespace LibConverterAndDictionaryLoader {
         public Exception Error { get; set; }
         public LoadResult() {
             Data = new Dictionary<string, string>();
+        }
+    }
+    public class LoaderEventArgs : EventArgs {
+        public LoadResult result { get; private set; }
+        public LoaderEventArgs(LoadResult result) {
+            this.result = result;
         }
     }
 }
