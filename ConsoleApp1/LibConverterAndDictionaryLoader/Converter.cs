@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LibConverterAndDictionaryLoader {
     public static class Converter {
-        public static List<string> Convert(List<string> content, Dictionary<string, string> dictionary) {
+        public static string Convert(string content, Dictionary<string, string> dictionary) {
             foreach (var item in dictionary) {
-                for (int lineIndex = 0; lineIndex < content.Count; lineIndex++) {
-                    content[lineIndex] = content[lineIndex].Replace(item.Key, item.Value);
-                }
+                content = content.Replace(item.Key, item.Value);
             }
             return content;
         }

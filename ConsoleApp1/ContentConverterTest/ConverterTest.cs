@@ -1,14 +1,9 @@
 ﻿using LibConverterAndDictionaryLoader;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
-namespace ContentConverterTest
-{
+namespace ContentConverterTest {
     [TestFixture]
     class ConverterTest {
         [Test]
@@ -22,7 +17,11 @@ namespace ContentConverterTest
             //Dictionary<string, string> dictionary = Program.CollectDictionaryFromXml(xmlFileNameWithAlphabets);
             Loader loader = new XmlLoader(fileName);
             var result = loader.GetFromConfig();
-            List<string> actualConvertionResult = Converter.Convert(fileDir, result.Data);
+            List<string> content = Converter.GetFileContentAsString(fileDir);
+            List<string> actualConvertionResult = new List<string>();
+            foreach (var line in content) {
+                actualConvertionResult.Add(Converter.Convert(line, result.Data));
+            }
 
             //assert
             Assert.AreEqual(expectedConverionResult.Count, actualConvertionResult.Count);

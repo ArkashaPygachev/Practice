@@ -25,79 +25,107 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.outputDictionaryTextBox = new System.Windows.Forms.RichTextBox();
-            this.inputTextBox = new System.Windows.Forms.RichTextBox();
-            this.convertButton = new System.Windows.Forms.Button();
-            this.outputResultTextBox = new System.Windows.Forms.RichTextBox();
-            this.panel2.SuspendLayout();
+            this.panelDictionaryOutput = new System.Windows.Forms.Panel();
+            this.txtBoxOutputDictionaryInfo = new System.Windows.Forms.RichTextBox();
+            this.listViewOutputDictionary = new System.Windows.Forms.ListView();
+            this.txtBoxInputContent = new System.Windows.Forms.RichTextBox();
+            this.bConvert = new System.Windows.Forms.Button();
+            this.txtBoxOutputResult = new System.Windows.Forms.RichTextBox();
+            this.panelDictionaryOutput.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel2
+            // panelDictionaryOutput
             // 
-            this.panel2.Controls.Add(this.outputDictionaryTextBox);
-            this.panel2.Location = new System.Drawing.Point(12, 12);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(323, 93);
-            this.panel2.TabIndex = 0;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.panelDictionaryOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDictionaryOutput.BackColor = System.Drawing.SystemColors.Window;
+            this.panelDictionaryOutput.Controls.Add(this.txtBoxOutputDictionaryInfo);
+            this.panelDictionaryOutput.Controls.Add(this.listViewOutputDictionary);
+            this.panelDictionaryOutput.Location = new System.Drawing.Point(1, 1);
+            this.panelDictionaryOutput.Name = "panelDictionaryOutput";
+            this.panelDictionaryOutput.Size = new System.Drawing.Size(345, 165);
+            this.panelDictionaryOutput.TabIndex = 0;
             // 
-            // outputDictionaryTextBox
+            // txtBoxOutputDictionaryInfo
             // 
-            this.outputDictionaryTextBox.Location = new System.Drawing.Point(3, 3);
-            this.outputDictionaryTextBox.Name = "outputDictionaryTextBox";
-            this.outputDictionaryTextBox.Size = new System.Drawing.Size(317, 94);
-            this.outputDictionaryTextBox.TabIndex = 0;
-            this.outputDictionaryTextBox.Text = "";
+            this.txtBoxOutputDictionaryInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxOutputDictionaryInfo.BackColor = System.Drawing.SystemColors.Window;
+            this.txtBoxOutputDictionaryInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxOutputDictionaryInfo.Location = new System.Drawing.Point(11, 11);
+            this.txtBoxOutputDictionaryInfo.Name = "txtBoxOutputDictionaryInfo";
+            this.txtBoxOutputDictionaryInfo.ReadOnly = true;
+            this.txtBoxOutputDictionaryInfo.Size = new System.Drawing.Size(317, 47);
+            this.txtBoxOutputDictionaryInfo.TabIndex = 0;
+            this.txtBoxOutputDictionaryInfo.Text = "";
             // 
-            // inputTextBox
+            // listViewOutputDictionary
             // 
-            this.inputTextBox.Location = new System.Drawing.Point(12, 126);
-            this.inputTextBox.Name = "inputTextBox";
-            this.inputTextBox.Size = new System.Drawing.Size(239, 30);
-            this.inputTextBox.TabIndex = 1;
-            this.inputTextBox.Text = "";
+            this.listViewOutputDictionary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewOutputDictionary.HideSelection = false;
+            this.listViewOutputDictionary.Location = new System.Drawing.Point(11, 81);
+            this.listViewOutputDictionary.Name = "listViewOutputDictionary";
+            this.listViewOutputDictionary.Size = new System.Drawing.Size(317, 69);
+            this.listViewOutputDictionary.TabIndex = 4;
+            this.listViewOutputDictionary.TileSize = new System.Drawing.Size(50, 30);
+            this.listViewOutputDictionary.UseCompatibleStateImageBehavior = false;
+            this.listViewOutputDictionary.View = System.Windows.Forms.View.Details;
             // 
-            // convertButton
+            // txtBoxInputContent
             // 
-            this.convertButton.Location = new System.Drawing.Point(257, 126);
-            this.convertButton.Name = "convertButton";
-            this.convertButton.Size = new System.Drawing.Size(75, 30);
-            this.convertButton.TabIndex = 2;
-            this.convertButton.Text = "convert";
-            this.convertButton.UseVisualStyleBackColor = true;
-            this.convertButton.Click += new System.EventHandler(this.convertButton_Click);
+            this.txtBoxInputContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxInputContent.Location = new System.Drawing.Point(15, 172);
+            this.txtBoxInputContent.Name = "txtBoxInputContent";
+            this.txtBoxInputContent.Size = new System.Drawing.Size(239, 30);
+            this.txtBoxInputContent.TabIndex = 1;
+            this.txtBoxInputContent.Text = "";
             // 
-            // outputResultTextBox
+            // bConvert
             // 
-            this.outputResultTextBox.Location = new System.Drawing.Point(15, 172);
-            this.outputResultTextBox.Name = "outputResultTextBox";
-            this.outputResultTextBox.Size = new System.Drawing.Size(317, 96);
-            this.outputResultTextBox.TabIndex = 3;
-            this.outputResultTextBox.Text = "";
+            this.bConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bConvert.Location = new System.Drawing.Point(257, 172);
+            this.bConvert.Name = "bConvert";
+            this.bConvert.Size = new System.Drawing.Size(75, 30);
+            this.bConvert.TabIndex = 2;
+            this.bConvert.Text = "convert";
+            this.bConvert.UseVisualStyleBackColor = true;
+            this.bConvert.Click += new System.EventHandler(this.convertButton_Click);
+            // 
+            // txtBoxOutputResult
+            // 
+            this.txtBoxOutputResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBoxOutputResult.Location = new System.Drawing.Point(15, 224);
+            this.txtBoxOutputResult.Name = "txtBoxOutputResult";
+            this.txtBoxOutputResult.Size = new System.Drawing.Size(317, 96);
+            this.txtBoxOutputResult.TabIndex = 3;
+            this.txtBoxOutputResult.Text = "";
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(347, 280);
-            this.Controls.Add(this.outputResultTextBox);
-            this.Controls.Add(this.convertButton);
-            this.Controls.Add(this.inputTextBox);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(346, 331);
+            this.Controls.Add(this.txtBoxOutputResult);
+            this.Controls.Add(this.bConvert);
+            this.Controls.Add(this.txtBoxInputContent);
+            this.Controls.Add(this.panelDictionaryOutput);
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel2.ResumeLayout(false);
+            this.panelDictionaryOutput.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.RichTextBox outputDictionaryTextBox;
-        private System.Windows.Forms.RichTextBox inputTextBox;
-        private System.Windows.Forms.Button convertButton;
-        private System.Windows.Forms.RichTextBox outputResultTextBox;
+        private System.Windows.Forms.Panel panelDictionaryOutput;
+        private System.Windows.Forms.RichTextBox txtBoxOutputDictionaryInfo;
+        private System.Windows.Forms.RichTextBox txtBoxInputContent;
+        private System.Windows.Forms.Button bConvert;
+        private System.Windows.Forms.RichTextBox txtBoxOutputResult;
+        private System.Windows.Forms.ListView listViewOutputDictionary;
     }
 }
 

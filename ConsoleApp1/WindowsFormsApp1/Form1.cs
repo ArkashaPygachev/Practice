@@ -9,77 +9,35 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        protected string inputFileName;
+        protected LoadResult result = new LoadResult();
         public Form1() {
             InitializeComponent();
-            //OutputDictionary();
-            //OutputResult();
-            
-            //MyButton b = new MyButton();
-            //this.Controls.Add(b);
-        }
-        protected override CreateParams CreateParams {
-            get {
-                CreateParams cp = base.CreateParams;
-                //cp.Width = 600;
-                //cp.Height = 300;
-                return cp;
-            }
-        }
-        private void OutputDictionary() {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            OutputPanel dictionaryPanel = new OutputPanel() {
-                Height = 100,
-                Width = 600
-            };
-            this.Controls.Add(dictionaryPanel);
-            dictionaryPanel.OutputDictionary();
-        }
-        private void OutputResult() {
-            OutputPanel convertPanel = new OutputPanel() {
-                Height = 100,
-                Width = 600,
-                BackColor = Color.FromArgb(110, 120, 140),
-                Location = new Point(0, 100)
-            };
-            this.Controls.Add(convertPanel);
-            convertPanel.OutputResult();
+            inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
+            Loader loader = new XmlLoader(inputFileName);
+            result = loader.GetFromConfig();
         }
         private void Form1_Load(object sender, EventArgs e) {
-            panel2.BackColor = Color.FromArgb(255, 255, 255);
-            panel2.Anchor = (AnchorStyles.Left | AnchorStyles.Top);
-
-            outputDictionaryTextBox.Width = panel2.Width;
-            outputDictionaryTextBox.Height = panel2.Height;
-            OutputDictionary(outputDictionaryTextBox);
+            DisplayDictionary();
         }
-        private void OutputDictionary (RichTextBox tb) {
-            string inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
-            Loader loader = new XmlLoader(inputFileName);
-            LoadResult result = loader.GetFromConfig(); ;
+        private void DisplayDictionary() {
             if (result.Error == null) {
-                tb.AppendText($"Dictionary loaded from {inputFileName}");
-                tb.AppendText("\n\n");
+                txtBoxOutputDictionaryInfo.AppendText($"Dictionary loaded from {inputFileName}");
+                List<string> row = new List<string>();
                 foreach (var item in result.Data) {
-                    tb.AppendText($"{item.Key} ");
+                    listViewOutputDictionary.Columns.Add(item.Key);
+                    row.Add(item.Value);
                 }
-                tb.AppendText("\n");
-                foreach (var item in result.Data) {
-                    tb.AppendText($"{item.Value} ");
-                }
+                string[] resRow = row.ToArray();
+                var listItem = new ListViewItem(resRow);
+                listViewOutputDictionary.Items.Add(listItem);
             } else MessageBox.Show(result.Error.Message);
         }
-
-        private void panel2_Paint(object sender, PaintEventArgs e) {
-
-        }
-
+        
         private void convertButton_Click(object sender, EventArgs e) {
-            List<string> content = new List<string> {inputTextBox.Text };
-            string inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
-            Loader loader = new XmlLoader(inputFileName);
-            LoadResult resultDictionary = loader.GetFromConfig();
-            List<string> resultContent = Converter.Convert(content, resultDictionary.Data);
-            outputResultTextBox.Text = resultContent[0];
+            string content = txtBoxInputContent.Text;
+            string convertedContent = Converter.Convert(content, result.Data);
+            txtBoxOutputResult.Text = convertedContent;
         }
     }
 }
