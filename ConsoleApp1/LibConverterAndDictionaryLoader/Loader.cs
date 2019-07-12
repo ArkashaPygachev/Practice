@@ -15,9 +15,10 @@ namespace LibConverterAndDictionaryLoader {
         }
         public void OnDictionaryLoaded(LoaderEventArgs e) {
             EventHandler dictionaryLoaded = DictionaryLoaded;
-            if (dictionaryLoaded!=null) {
-                dictionaryLoaded(this, e);
-            }
+            dictionaryLoaded?.Invoke(this, e);
+            //if (dictionaryLoaded!=null) {
+            //    dictionaryLoaded(this, e);
+            //}
         }
         public abstract LoadResult GetFromConfig();
     }

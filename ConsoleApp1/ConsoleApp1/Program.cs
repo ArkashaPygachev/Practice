@@ -16,7 +16,7 @@ namespace ConsoleApp1 {
                 throw new InvalidOperationException("Command Line parameters were not specified");
             string inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
 
-            Console.WriteLine("Start dictionary loading");
+            Console.WriteLine("Start dictionary loading...\n");
 
             Loader loader;
             if (args[0] == "0") {
@@ -44,39 +44,16 @@ namespace ConsoleApp1 {
         }
 
         private static void Loader_DictionaryLoaded(object sender, EventArgs e) {
-            Console.WriteLine((e as LoaderEventArgs).result.Data);
-            //if (e is LoaderEventArgs) {
-            //    LoaderEventArgs loaderEventArgs = e as LoaderEventArgs;
-            //    List<string> allConvertedText = new List<string>();
-            //    if (loaderEventArgs.result.Error == null) {
-            //        do {
-            //            Console.WriteLine("Enter text to convert");
-            //            string text = Console.ReadLine();
-            //            string convertedText = Converter.Convert(text, loaderEventArgs.result.Data);
-            //            allConvertedText.Add(convertedText);
-            //            Console.WriteLine($"Converted text:\n{convertedText}\nContinue?(y/n)");
-            //        } while (Console.ReadKey(true).Key == ConsoleKey.Y);
-            //        SaveResult(allConvertedText);
-            //        Environment.Exit(0);
-            //    } else
-            //        Environment.Exit(1);
-            //}
-            //if (e is LoaderEventArgs) {
-            //    LoaderEventArgs loaderEventArgs = e as LoaderEventArgs;
-            //    List<string> allConvertedText = new List<string>();
-            //    if (loaderEventArgs.result.Error == null) {
-            //        do {
-            //            Console.WriteLine("Enter text to convert");
-            //            string text = Console.ReadLine();
-            //            string convertedText = Converter.Convert(text, loaderEventArgs.result.Data);
-            //            allConvertedText.Add(convertedText);
-            //            Console.WriteLine($"Converted text:\n{convertedText}\nContinue?(y/n)");
-            //        } while (Console.ReadKey(true).Key == ConsoleKey.Y);
-            //        SaveResult(allConvertedText);
-            //        Environment.Exit(0);
-            //    } else
-            //        Environment.Exit(1);
-            //}
+            string inputFileName = ConfigurationManager.AppSettings["LoadFileName"];
+            Console.WriteLine($"Dictionary loaded from {inputFileName}\n");
+            foreach (var item in (e as LoaderEventArgs).result.Data) {
+                Console.Write($"{item.Key} ");
+            }
+            Console.WriteLine();
+            foreach (var item in (e as LoaderEventArgs).result.Data) {
+                Console.Write($"{item.Value} ");
+            }
+            Console.WriteLine("\n");
         }
 
         static void SaveResult(List<string> result) {
